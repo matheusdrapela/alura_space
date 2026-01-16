@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
 
+
 class Fotografia(models.Model):
 
     OPCOES_CATEGORIA =[
@@ -16,7 +17,7 @@ class Fotografia(models.Model):
     categoria = models.CharField(max_length=100, choices=OPCOES_CATEGORIA, default='')
     descritao = models.TextField(null=False, blank=False)
     foto = models.ImageField(upload_to='fotos/%Y/%m/%d/', blank=True)
-    publicada = models.BooleanField(default=False)
+    publicada = models.BooleanField(default=True)
     data_fotografia = models.DateTimeField(default=datetime.now, blank=True)
     usuario = models.ForeignKey(
         to=User,
