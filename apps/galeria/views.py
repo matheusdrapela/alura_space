@@ -29,7 +29,7 @@ def buscar(request):
         if buscar_a_nome:
             fotografias = fotografias.filter(nome__icontains=buscar_a_nome)
 
-    return render(request, "galeria/buscar.html", {"dados": fotografias})
+    return render(request, "galeria/index.html", {"dados": fotografias})
 
 def nova_imagem(request):
     if not request.user.is_authenticated:
@@ -64,3 +64,8 @@ def deletar_imagem(request, foto_id):
     fotografia.delete()
     messages.success(request, 'Imagem deletada com sucesso!')
     return redirect('index')
+
+def filtro(request, categoria):
+    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicada=True, categoria=categoria)
+
+    return render(request, 'galeria/index.html', {"dados": fotografias})
